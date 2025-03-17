@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+set -ex -o pipefail
+
+stack clean
+stack build
+strip .stack-work/dist/x86_64-linux/ghc-9.8.4/build/map-service-exe/map-service-exe
+docker build -t map-service .
+
+docker run --rm -it -p 3000:3000 map-service

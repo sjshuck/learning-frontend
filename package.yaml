@@ -1,0 +1,53 @@
+name:                map-service
+version:             0.1.0.0
+github:              "sjshuck/learning-frontend"
+license:             Apache-2.0
+author:              "Steven Shuck"
+maintainer:          "stevenjshuck@gmail.com"
+copyright:           "2025 Steven Shuck"
+
+description:         Please see the README on GitHub at <https://github.com/sjshuck/learning-frontend>
+
+dependencies:
+- base >= 4.7 && < 5
+- conduit
+- text
+- unordered-containers
+- yesod-core
+- yesod-static
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+
+executables:
+  map-service-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - map-service
+
+tests:
+  map-service-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - map-service

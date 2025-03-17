@@ -1,0 +1,19 @@
+.happy {
+    background-color: lightgreen;
+}
+
+.neutral {
+    background-color: lightskyblue;
+}
+
+.sad {
+    background-color: salmon;
+}
+
+.data {
+    font-family: monospace;
+}
+
+.advice {
+    font-style: italic;
+}
