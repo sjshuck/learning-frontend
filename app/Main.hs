@@ -11,6 +11,7 @@ module Main (
 where
 
 import           Conduit              ((.|), foldC, runConduit)
+import           Control.Monad        (when)
 import           Data.HashMap.Strict  (HashMap)
 import qualified Data.HashMap.Strict  as HM
 import           Data.IORef
@@ -76,9 +77,12 @@ replaceAtKey k maybeV = do
 putKeyR :: Text -> Handler (JSONResponse Previous)
 putKeyR k = do
     reqBody <- runConduit $ rawRequestBody .| foldC
-    case Text.decodeUtf8' reqBody of
+    v <- case Text.decodeUtf8' reqBody of
         Left e  -> invalidArgs [Text.pack $ show e]
-        Right v -> JSONResponse . Previous <$> replaceAtKey k (Just v)
+        Right v -> return v
+    when (Text.null v) $ invalidArgs ["empty value"]
+
+    JSONResponse . Previous <$> replaceAtKey k (Just v)
 
 deleteKeyR :: Text -> Handler (JSONResponse Previous)
 deleteKeyR k = do
